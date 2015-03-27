@@ -1,9 +1,9 @@
 package com.ganatragmail.sagar.photogallery;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.IntentService;
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +21,12 @@ public class PollService extends IntentService {
 
     public static final String TAG = "PollService";
     public static final int POLL_INTERVAL =  1000*60*30; //30 Minutes
+    public static final String PREF_IS_ALARM_ON = "isAlarmOn";
+    public static final String ACTION_SHOW_NOTIFICATION = "com.ganatrasagar.photogallery.SHOW_NOTIFICATION";
+    public static final String PERM_PRIVATE = "com.ganatrasagar.photogallery.PRIVATE";
+
+
+
 
     public PollService(){
         super(TAG);
@@ -72,12 +78,7 @@ public class PollService extends IntentService {
                 .setAutoCancel(true)
                 .build();
 
-        NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-
-        notificationManager.notify(0, notification);
-
-
-
+        showBackgroundNotification(0, notification);
 
         prefs.edit()
                 .putString(FlickrFetcher.PREF_LAST_RESULT_ID, resultId)
@@ -102,6 +103,19 @@ public class PollService extends IntentService {
             pi.cancel();
         }
 
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putBoolean(PollService.PREF_IS_ALARM_ON, isOn)
+                .commit();
+
+    }
+
+    void showBackgroundNotification(int requestCode, Notification notification){
+        Intent i = new Intent(ACTION_SHOW_NOTIFICATION);
+        i.putExtra("REQUEST_CODE", requestCode);
+        i.putExtra("NOTIFICATION", notification);
+
+        sendOrderedBroadcast(i, PERM_PRIVATE, null, null, Activity.RESULT_OK, null, null);
     }
 
     public static boolean isServiceAlarmOn (Context context) {

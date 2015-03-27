@@ -1,13 +1,12 @@
 package com.ganatragmail.sagar.photogallery;
 
-/**
- * Created by Sagar on 1/29/2015.
- */
+
 public class GalleryItem {
 
     private String mCaption;
     private String mId;
     private String mUrl;
+    private String mOwner;
 
     public String toString(){
         return mCaption;
@@ -35,5 +34,18 @@ public class GalleryItem {
 
     public void setUrl(String url) {
         mUrl = url;
+    }
+
+
+    public String getOwner() {
+        return mOwner;
+    }
+
+    public void setOwner(String mOwner) {
+        this.mOwner = mOwner;
+    }
+
+    public String getPhotoURL(){
+        return "http://www.flickr.com/photos/" + mOwner + "/" +mId;
     }
 }
