@@ -5,7 +5,8 @@ public class GalleryItem {
 
     private String mCaption;
     private String mId;
-    private String mUrl;
+    private String mUrlSmall;
+    private  String mUrlMedium;
     private String mOwner;
 
     public String toString(){
@@ -28,14 +29,23 @@ public class GalleryItem {
         mId = id;
     }
 
-    public String getUrl() {
-        return mUrl;
+    public String getUrlSmall() {
+        return mUrlSmall;
     }
 
-    public void setUrl(String url) {
-        mUrl = url;
+
+    public void setUrlSmall(String url_m) {
+        mUrlSmall = url_m;
     }
 
+
+    public String getUrlMedium() {
+        return mUrlMedium;
+    }
+
+    public void setUrlMedium(String mUrl_m) {
+        this.mUrlMedium = mUrl_m;
+    }
 
     public String getOwner() {
         return mOwner;

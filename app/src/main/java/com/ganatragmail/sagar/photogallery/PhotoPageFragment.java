@@ -1,8 +1,9 @@
 package com.ganatragmail.sagar.photogallery;
 
 
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,10 @@ public class PhotoPageFragment extends VisibleFragment{
                             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_photo_page, container, false);
 
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
+            if (NavUtils.getParentActivityName(getActivity())!= null)
+                ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         final ProgressBar progressBar = (ProgressBar)rootView.findViewById(R.id.progressBar);
         progressBar.setMax(100);
